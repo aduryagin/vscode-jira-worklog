@@ -74,15 +74,15 @@
 					});
 
 					response.on('end', async () => {
-						let data;
+						let jsonData;
 						if (dataQueue.indexOf('Unauthorized') > -1) {
 							await login(true);
-							data = await request(path, method, data);
-							return resolve(data);
+							jsonData = await request(path, method, data);
+							return resolve(jsonData);
 						}
 
-						data = JSON.parse(dataQueue);
-						resolve(data);
+						jsonData = JSON.parse(dataQueue);
+						resolve(jsonData);
 					});
 				});
 		
@@ -119,8 +119,8 @@
 
 		function registerEvents() {
 			try {
-				const rootPath = vscode.workspace.workspaceFolders[0].uri.path;
-				let gitBranch = require('child_process').execSync(`cd ${rootPath}; git rev-parse --abbrev-ref HEAD`).toString().trim();
+				const rootPath = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.path : '';
+				let gitBranch = vscode.workspace.workspaceFolders ? require('child_process').execSync(`cd ${rootPath}; git rev-parse --abbrev-ref HEAD`).toString().trim() : '';
 				let taskNumber = gitBranch.replace(/[^0-9]/g, '');
 				const projectSetting = vscode.workspace.getConfiguration().get(jiraProjectSettingKey);
 				let seconds = 0;
