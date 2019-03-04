@@ -170,6 +170,8 @@
 
 				if (gitBranch && taskNumber) {
 					setCommandStartToButton();
+				} else {
+					logWorkStatusBarItem.hide();
 				}
 
 				setInterval(() => {
@@ -187,7 +189,10 @@
 								startWorkLog();
 							}
 						} else {
-							stopWorkLog(oldTaskNumber);
+							if (started) {
+								stopWorkLog(oldTaskNumber);
+							}
+
 							logWorkStatusBarItem.hide();
 						}
 					}
