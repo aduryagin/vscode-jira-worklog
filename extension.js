@@ -144,7 +144,7 @@
 
 				function setCommandStartToButton() {
 					logWorkStatusBarItem.show();
-					logWorkStatusBarItem.text = `$(clock) Start worklog (${getNormalizedTime(context.globalState.get(gitBranch))}) for ${projectSetting}-${taskNumber}`;
+					logWorkStatusBarItem.text = `$(clock) Start worklog (${getNormalizedTime(context.globalState.get(gitBranch) || 0)}) for ${projectSetting}-${taskNumber}`;
 					
 					if (!logWorkStatusBarItem.command) {
 						logWorkStatusBarItem.command = logWorkCommandID;
@@ -226,6 +226,7 @@
 		}
 
 		function init() {
+			context.globalState.update(jiraSessionState, '');
 			logWorkStatusBarItem.show();
 
 			if (!context.globalState.get(jiraSessionState)) {
