@@ -24,7 +24,7 @@
 			return number;
 		}
 
-		return `${numberWithZero(Math.floor(seconds / 60 / 60))}:${numberWithZero(Math.floor(seconds / 60))}:${numberWithZero(seconds % 60)}`;
+		return `${numberWithZero(Math.floor(seconds / 60 / 60))}:${numberWithZero(Math.floor((seconds / 60) % 60))}:${numberWithZero(seconds % 60)}`;
 	}
 
 	/**
