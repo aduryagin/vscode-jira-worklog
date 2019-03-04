@@ -57,7 +57,7 @@
 					path,
 					headers: {
 						'Content-Type': 'application/json',
-						'Content-Length': postData.length,
+						'Content-Length': Buffer.byteLength(postData),
 						...(session ? { 'Cookie': `JSESSIONID=${session}`} : {}),
 						...(
 							basicAuthLoginSetting && basicAuthPasswordSetting ?
