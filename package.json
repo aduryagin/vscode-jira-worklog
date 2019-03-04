@@ -10,17 +10,53 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+		"*"
 	],
-	"main": "./extension.js",
 	"contributes": {
-		"commands": [
+		"configuration": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"title": "Jira worklog",
+				"properties": {
+					"jira-worklog.host": {
+						"type": "string",
+						"description": "Jira hostname (https://jira.domain.com)",
+						"scope": "window"
+					},
+					"jira-worklog.login": {
+						"type": "string",
+						"description": "Jira login",
+						"scope": "window"
+					},
+					"jira-worklog.password": {
+						"type": "string",
+						"description": "Jira password",
+						"scope": "window"
+					},
+					"jira-worklog.project": {
+						"type": "string",
+						"description": "Jira project",
+						"scope": "window"
+					},
+					"jira-worklog.worklog.comment": {
+						"type": "string",
+						"description": "Worklog comment. Available variables - {TaskNumber} {JiraProject}.",
+						"scope": "window"
+					},
+					"jira-worklog.basicAuth.login": {
+						"type": "string",
+						"description": "Basic access authentication login",
+						"scope": "window"
+					},
+					"jira-worklog.basicAuth.password": {
+						"type": "string",
+						"description": "Basic access authentication password",
+						"scope": "window"
+					}
+				}
 			}
 		]
 	},
+	"main": "./extension.js",
 	"scripts": {
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "node ./node_modules/vscode/bin/test"
