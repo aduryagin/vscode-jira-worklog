@@ -211,8 +211,11 @@
 
 			if (hostSetting && loginSetting && passwordSetting && projectSetting) {
 				logWorkStatusBarItem.show();
-				logWorkStatusBarItem.text = '$(sync~spin) jira logwork: authorization...';
-			
+
+				if (!withoutRegisterEvents) {
+					logWorkStatusBarItem.text = '$(sync~spin) jira logwork: authorization...';
+				}
+
 				try {
 					const data = await request('/rest/auth/1/session', 'POST', { username: loginSetting, password: passwordSetting });
 					context.globalState.update(jiraSessionState, data.session.value);
