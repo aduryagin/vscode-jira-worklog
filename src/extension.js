@@ -11,9 +11,8 @@ function activate(context) {
     const hostSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraHostSettingKey);
     const loginSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraLoginSettingKey);
     const passwordSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraPasswordSettingKey);
-    const projectSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectSettingKey);
 
-    if (hostSetting && loginSetting && passwordSetting && projectSetting) {
+    if (hostSetting && loginSetting && passwordSetting) {
       logWorkStatusBarItem.show();
 
       if (!withoutRegisterEvents) {
@@ -30,10 +29,10 @@ function activate(context) {
       } catch (e) {
         console.log(e);
         logWorkStatusBarItem.hide();
-        vscode.window.showErrorMessage('Jira log work: Incorrect login or password');
+        vscode.window.showErrorMessage('Jira worklog: Incorrect login or password');
       }
     } else {
-      vscode.window.showInformationMessage('Jira log work: Set host, login, password, project in preferences');
+      vscode.window.showInformationMessage('Jira worklog: Set host, login, password, project in preferences');
     }
   }
 
@@ -53,11 +52,11 @@ function activate(context) {
       });
 
       if (data.errorMessages) {
-        vscode.window.showErrorMessage(`Jira log work: ${data.errorMessages[0]}`);
+        vscode.window.showErrorMessage(`Jira worklog: ${data.errorMessages[0]}`);
       }
     } catch (e) {
       console.log(e);
-      vscode.window.showErrorMessage('Jira log work: Something went wrong');
+      vscode.window.showErrorMessage('Jira worklog: Something went wrong');
     }
   }
 
@@ -144,18 +143,13 @@ function activate(context) {
       }, 1500);
     } catch (e) {
       console.log(e);
-      vscode.window.showErrorMessage('Jira log work: Something went wrong');
+      vscode.window.showErrorMessage('Jira worklog: Something went wrong');
     }
   }
 
   function init() {
     logWorkStatusBarItem.show();
-
-    if (!context.globalState.get(constants.jiraSessionState)) {
-      login();
-    } else {
-      registerEvents();
-    }
+    login();
   }
 
   function onDidChangeConfiguration() {
@@ -168,7 +162,13 @@ function activate(context) {
         event.affectsConfiguration(constants.settings.jiraProjectBasicAuthLoginKey) ||
         event.affectsConfiguration(constants.settings.jiraProjectBasicAuthPasswordKey)
       ) {
-        login();
+        const hostSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraHostSettingKey);
+        const loginSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraLoginSettingKey);
+        const passwordSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraPasswordSettingKey);
+
+        if (hostSetting && loginSetting && passwordSetting) {
+          login();
+        }
       }
     }));
   }
