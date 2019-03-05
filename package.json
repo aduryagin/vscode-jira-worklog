@@ -6,6 +6,7 @@
 	"engines": {
 		"vscode": "^1.31.0"
 	},
+	"icon": "screenshots/icon.png",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/aduryagin/jira-vscode-worklog.git"
