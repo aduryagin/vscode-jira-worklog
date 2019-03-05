@@ -1,6 +1,6 @@
 # vscode-jira-worklog
 
-[![vscode-jira-logwork](https://vsmarketplacebadge.apphb.com/version/AlexeyDuryagin.vscode-jira-logwork.svg)](https://marketplace.visualstudio.com/items?itemName=AlexeyDuryagin.vscode-jira-logwork)
+[![vscode-jira-worklog](https://vsmarketplacebadge.apphb.com/version/AlexeyDuryagin.vscode-jira-worklog.svg)](https://marketplace.visualstudio.com/items?itemName=AlexeyDuryagin.vscode-jira-worklog)
 
 Vscode extension for jira worklog
 

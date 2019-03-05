@@ -1,5 +1,8 @@
 # Change Log
-All notable changes to the "vscode-jira-logwork" extension will be documented in this file.
+All notable changes to the "vscode-jira-worklog" extension will be documented in this file.
+
+## 0.1.9
+- logwork -> worklog
 
 ## 0.1.8
 - Update extension name
