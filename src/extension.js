@@ -68,7 +68,7 @@ function activate(context) {
       try {
         gitBranch = vscode.workspace.workspaceFolders ? require('child_process').execSync(`cd ${rootPath}; git rev-parse --abbrev-ref HEAD`).toString().trim() : '';
       } catch {
-        return vscode.window.showErrorMessage('Jira worklog: You are not in a git repository.');
+        return vscode.window.showInformationMessage('Jira worklog: You are not in a git repository.');
       }
       
       let taskNumber = gitBranch.replace(/[^0-9]/g, '');
