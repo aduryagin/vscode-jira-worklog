@@ -1,7 +1,7 @@
 {
-	"name": "vscode-jira-logwork",
-	"displayName": "vscode-jira-logwork",
-	"description": "Jira log work extension for vscode",
+	"name": "vscode-jira-worklog",
+	"displayName": "vscode-jira-worklog",
+	"description": "Jira worklog extension for vscode",
 	"version": "0.1.7",
 	"engines": {
 		"vscode": "^1.31.0"
