@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the "vscode-jira-worklog" extension will be documented in this file.
 
+## 0.1.13
+- Show notification when you're not in a git repository
+
 ## 0.1.12
 - Some refactoring & auth after every init
 
