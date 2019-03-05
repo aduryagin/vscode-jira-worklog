@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the "vscode-jira-worklog" extension will be documented in this file.
 
+## 0.1.11
+- Request is not defined bugfix
+
 ## 0.1.10
 - Some naming fixes
 
