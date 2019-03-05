@@ -63,7 +63,14 @@ function activate(context) {
   function registerEvents() {
     try {
       const rootPath = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.path : '';
-      let gitBranch = vscode.workspace.workspaceFolders ? require('child_process').execSync(`cd ${rootPath}; git rev-parse --abbrev-ref HEAD`).toString().trim() : '';
+      let gitBranch;
+
+      try {
+        gitBranch = vscode.workspace.workspaceFolders ? require('child_process').execSync(`cd ${rootPath}; git rev-parse --abbrev-ref HEAD`).toString().trim() : '';
+      } catch {
+        return vscode.window.showErrorMessage('Jira worklog: You are not in a git repository.');
+      }
+      
       let taskNumber = gitBranch.replace(/[^0-9]/g, '');
       const projectSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectSettingKey);
       let seconds = 0;
