@@ -6,7 +6,38 @@ function activate(context) {
   const logWorkStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 50);
   let started = false;
   let interval;
-  let request;
+
+  async function login(withoutRegisterEvents) {
+    const hostSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraHostSettingKey);
+    const loginSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraLoginSettingKey);
+    const passwordSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraPasswordSettingKey);
+    const projectSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectSettingKey);
+
+    if (hostSetting && loginSetting && passwordSetting && projectSetting) {
+      logWorkStatusBarItem.show();
+
+      if (!withoutRegisterEvents) {
+        logWorkStatusBarItem.text = '$(sync~spin) jira logwork: authorization...';
+      }
+
+      try {
+        const data = await request('/rest/auth/1/session', 'POST', { username: loginSetting, password: passwordSetting });
+        context.globalState.update(constants.jiraSessionState, data.session.value);
+
+        if (!withoutRegisterEvents) {
+          registerEvents();
+        }
+      } catch (e) {
+        console.log(e);
+        logWorkStatusBarItem.hide();
+        vscode.window.showErrorMessage('Jira log work: Incorrect login or password');
+      }
+    } else {
+      vscode.window.showInformationMessage('Jira log work: Set host, login, password, project in preferences');
+    }
+  }
+
+  const request = utils.requestCreator(login, context);
 
   const sendWorkLog = async (taskNumber) => {
     try {
@@ -116,38 +147,6 @@ function activate(context) {
       vscode.window.showErrorMessage('Jira log work: Something went wrong');
     }
   }
-
-  async function login(withoutRegisterEvents) {
-    const hostSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraHostSettingKey);
-    const loginSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraLoginSettingKey);
-    const passwordSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraPasswordSettingKey);
-    const projectSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectSettingKey);
-
-    if (hostSetting && loginSetting && passwordSetting && projectSetting) {
-      logWorkStatusBarItem.show();
-
-      if (!withoutRegisterEvents) {
-        logWorkStatusBarItem.text = '$(sync~spin) jira logwork: authorization...';
-      }
-
-      try {
-        const data = await request('/rest/auth/1/session', 'POST', { username: loginSetting, password: passwordSetting });
-        context.globalState.update(constants.jiraSessionState, data.session.value);
-
-        if (!withoutRegisterEvents) {
-          registerEvents();
-        }
-      } catch (e) {
-        console.log(e);
-        logWorkStatusBarItem.hide();
-        vscode.window.showErrorMessage('Jira log work: Incorrect login or password');
-      }
-    } else {
-      vscode.window.showInformationMessage('Jira log work: Set host, login, password, project in preferences');
-    }
-  }
-
-  request = utils.requestCreator(login, context);
 
   function init() {
     logWorkStatusBarItem.show();

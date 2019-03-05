@@ -13,7 +13,7 @@ function getNormalizedTime(seconds) {
 }
 
 const requestCreator = (login, context) => {
-  return async (path, method, data) => {
+  async function request(path, method, data) {
     const hostSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraHostSettingKey);
     const basicAuthLoginSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectBasicAuthLoginKey);
     const basicAuthPasswordSetting = vscode.workspace.getConfiguration().get(constants.settings.jiraProjectBasicAuthPasswordKey);
@@ -69,6 +69,7 @@ const requestCreator = (login, context) => {
     });
   }
   
+  return request;
 }
 
 module.exports = {
