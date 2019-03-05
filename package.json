@@ -1,6 +1,6 @@
 {
-	"name": "vscode-jira-worklog",
-	"displayName": "vscode-jira-worklog",
+	"name": "jira-worklog",
+	"displayName": "Jira worklog",
 	"description": "Jira worklog extension for vscode",
 	"version": "0.1.9",
 	"engines": {
