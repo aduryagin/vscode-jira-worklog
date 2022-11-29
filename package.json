@@ -2,7 +2,7 @@
 	"name": "jira-worklog",
 	"displayName": "Jira worklog",
 	"description": "Jira worklog extension for vscode",
-	"version": "0.1.14",
+	"version": "0.2.0",
 	"engines": {
 		"vscode": "^1.31.0"
 	},
@@ -38,14 +38,14 @@
 						"description": "Jira password",
 						"scope": "window"
 					},
-					"jira-worklog.project": {
+					"jira-worklog.issueIdRegex": {
 						"type": "string",
-						"description": "Jira project",
+						"description": "Jira issueId Regex",
 						"scope": "window"
 					},
 					"jira-worklog.worklog.comment": {
 						"type": "string",
-						"description": "Worklog comment. Available variables - {TaskNumber} {JiraProject}.",
+						"description": "Worklog comment. Available variables - {issueId}.",
 						"scope": "window"
 					},
 					"jira-worklog.basicAuth.login": {
